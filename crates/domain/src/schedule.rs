@@ -1,6 +1,5 @@
 use crate::{DomainError, Dose, Instant, ReminderCandidate, ScheduleConfig, ScheduleIdentity};
 
-/// A medication schedule aggregate that owns dose transitions and adherence queries.
 #[derive(Clone, Debug, PartialEq)]
 pub struct Schedule {
     identity: ScheduleIdentity,
@@ -9,7 +8,6 @@ pub struct Schedule {
 }
 
 impl Schedule {
-    /// Builds a schedule after validating its identity and finite timing configuration.
     pub fn new(
         identity: ScheduleIdentity,
         configuration: ScheduleConfig,
@@ -26,12 +24,10 @@ impl Schedule {
         })
     }
 
-    /// Returns the patient and medication identity for this schedule.
     pub fn identity(&self) -> &ScheduleIdentity {
         &self.identity
     }
 
-    /// Records an intake in the matching dose window.
     pub fn record_intake(&mut self, at: Instant) -> Result<(), DomainError> {
         if at < self.first_dose_at() {
             return Err(DomainError::IntakeBeforeScheduleStart { at });
@@ -50,7 +46,6 @@ impl Schedule {
         Err(DomainError::IntakeOutsideDoseWindow { at })
     }
 
-    /// Calculates taken doses divided by doses scheduled by the supplied instant.
     pub fn adherence_rate(&self, now: Instant) -> f64 {
         let elapsed = self
             .doses
@@ -64,7 +59,6 @@ impl Schedule {
         taken as f64 / elapsed.len() as f64
     }
 
-    /// Atomically marks every currently overdue unclaimed dose and returns candidates.
     pub fn claim_overdue_reminders(&mut self, now: Instant) -> Vec<ReminderCandidate> {
         self.doses
             .iter_mut()

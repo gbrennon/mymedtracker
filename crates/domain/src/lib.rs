@@ -1,4 +1,3 @@
-//! Pure domain entities, value objects, and medication-adherence invariants.
 mod dose;
 mod dose_status;
 mod duration;

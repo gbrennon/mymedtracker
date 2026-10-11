@@ -1,7 +1,6 @@
 use crate::{DomainError, DoseStatus, Duration, Instant};
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-/// A scheduled medication dose with immutable timing and domain-controlled state transitions.
 pub struct Dose {
     scheduled_at: Instant,
     taken_at: Option<Instant>,
@@ -17,17 +16,14 @@ impl Dose {
         }
     }
 
-    /// Returns the scheduled instant for this dose.
     pub fn scheduled_at(&self) -> Instant {
         self.scheduled_at
     }
 
-    /// Returns the intake instant when this dose has been taken.
     pub fn taken_at(&self) -> Option<Instant> {
         self.taken_at
     }
 
-    /// Derives the dose status at a supplied instant.
     pub fn status_at(&self, now: Instant, grace_period: Duration) -> DoseStatus {
         if self.taken_at.is_some() {
             return DoseStatus::Taken;
@@ -38,7 +34,6 @@ impl Dose {
         DoseStatus::Scheduled
     }
 
-    /// Records an intake and rejects early or duplicate transitions.
     pub fn mark_taken(&mut self, at: Instant) -> Result<(), DomainError> {
         if self.taken_at.is_some() {
             return Err(DomainError::DoseAlreadyTaken);

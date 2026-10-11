@@ -1,6 +1,5 @@
 use crate::{DomainError, Duration, Instant};
 
-/// Configuration for generating a finite medication schedule.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct ScheduleConfig {
     first_dose_at: Instant,
@@ -10,7 +9,6 @@ pub struct ScheduleConfig {
 }
 
 impl ScheduleConfig {
-    /// Validates and creates a schedule configuration.
     pub fn new(
         first_dose_at: Instant,
         interval: Duration,
