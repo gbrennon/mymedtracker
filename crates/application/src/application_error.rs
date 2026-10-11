@@ -1,8 +1,11 @@
 use medtrack_domain::DomainError;
 
+/// Failures returned by application use cases and their outbound ports.
 #[derive(Debug)]
 pub enum ApplicationError {
+    /// A domain invariant rejected the requested operation.
     Domain(DomainError),
+    /// No schedule exists for the requested patient and medication.
     ScheduleNotFound,
 }
 

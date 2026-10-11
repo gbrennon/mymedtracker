@@ -1,9 +1,9 @@
 use medtrack_application::Clock;
 use medtrack_domain::Instant;
-use std::future::Future;
 use std::pin::Pin;
 use std::time::{SystemTime, UNIX_EPOCH};
 
+/// Reads the host system clock and converts it to a domain instant.
 pub struct SystemClock;
 
 impl Clock for SystemClock {

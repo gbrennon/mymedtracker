@@ -1,3 +1,4 @@
+//! Application use cases and outbound ports for medication adherence workflows.
 mod application_error;
 mod intake_event;
 mod port;

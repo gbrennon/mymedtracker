@@ -1,16 +1,38 @@
 use crate::{Instant, PatientId};
 
+/// Errors raised when a medication schedule violates a domain invariant.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum DomainError {
+    /// The medication name contains no non-whitespace characters.
     EmptyMedicationName,
+    /// The patient identifier contains no non-whitespace characters.
     EmptyPatientId,
+    /// A schedule must contain at least one dose.
     InvalidDoseCount,
+    /// A schedule interval must be positive.
     InvalidInterval,
+    /// A grace period must not overlap the next dose interval.
     GracePeriodMustBeShorterThanInterval,
+    /// Schedule generation exceeded the supported instant range.
     ScheduleOverflow,
-    IntakeBeforeScheduleStart { at: Instant },
-    IntakeOutsideDoseWindow { at: Instant },
-    DuplicateDoseIntake { patient: PatientId, at: Instant },
+    /// An intake occurred before the first scheduled dose.
+    IntakeBeforeScheduleStart {
+        /// The rejected intake instant.
+        at: Instant,
+    },
+    /// An intake did not fall inside any dose window.
+    IntakeOutsideDoseWindow {
+        /// The rejected intake instant.
+        at: Instant,
+    },
+    /// An intake targeted a dose that had already been recorded.
+    DuplicateDoseIntake {
+        /// The patient whose dose was duplicated.
+        patient: PatientId,
+        /// The duplicate intake instant.
+        at: Instant,
+    },
+    /// A direct dose transition attempted to record a second intake.
     DoseAlreadyTaken,
 }
 
