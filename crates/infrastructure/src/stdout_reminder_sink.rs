@@ -1,7 +1,7 @@
 use medtrack_application::{ApplicationError, ReminderMessage, ReminderSink};
-use std::future::Future;
 use std::pin::Pin;
 
+/// Writes reminder messages to standard output.
 pub struct StdoutReminderSink;
 
 impl ReminderSink for StdoutReminderSink {

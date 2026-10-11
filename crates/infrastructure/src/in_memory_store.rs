@@ -1,15 +1,16 @@
 use medtrack_application::{ApplicationError, IntakeEvent, PatientStore};
 use medtrack_domain::{Instant, ReminderCandidate, Schedule, ScheduleIdentity};
 use std::collections::HashMap;
-use std::future::Future;
 use std::pin::Pin;
 use tokio::sync::RwLock;
 
+/// A concurrency-safe in-memory implementation of the patient store port.
 pub struct InMemoryPatientStore {
     schedules: RwLock<HashMap<ScheduleIdentity, Schedule>>,
 }
 
 impl InMemoryPatientStore {
+    /// Creates an empty store.
     pub fn new() -> Self {
         Self {
             schedules: RwLock::new(HashMap::new()),

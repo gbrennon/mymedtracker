@@ -1,3 +1,4 @@
+//! Tokio composition root and bounded concurrent medtrack demonstration.
 use medtrack_application::{
     Clock, IntakeEvent, PatientStore, RegisterSchedule, SchedulerTick, SubmitIntake,
 };

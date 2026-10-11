@@ -1,3 +1,4 @@
+//! Tokio-backed adapters for storage, time, event ingestion, and reminder output.
 mod in_memory_store;
 mod intake_bus;
 mod stdout_reminder_sink;
