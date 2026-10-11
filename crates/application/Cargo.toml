@@ -1,0 +1,7 @@
+[package]
+name = "medtrack-application"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+medtrack-domain = { package = "medtrack-domain", path = "../domain" }

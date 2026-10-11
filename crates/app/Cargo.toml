@@ -1,0 +1,10 @@
+[package]
+name = "medtrack-app"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+medtrack-domain = { path = "../domain" }
+medtrack-application = { path = "../application" }
+medtrack-infrastructure = { path = "../infrastructure" }
+tokio.workspace = true
